@@ -2,13 +2,19 @@ from pyray import *
 from player import Player
 
 WINDOW_WIDTH, WINDOW_HEIGHT = 1280, 720
-PADDING = 5
-WORLD_BOUNDS = Rectangle(PADDING, PADDING, WINDOW_WIDTH - PADDING, WINDOW_HEIGHT - PADDING)
+WORLD_BOUNDS = Rectangle(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT)
+TEXTURE_SCALE = 4
 
 init_window(WINDOW_WIDTH, WINDOW_HEIGHT, 'Nadir\'s Dungeon')
 set_target_fps(60)
 
-player = Player(WINDOW_WIDTH / 2, WINDOW_HEIGHT / 2, 50, MAROON, 250.0)
+pos = Vector2(WINDOW_WIDTH / 2 - 100, WINDOW_HEIGHT / 2)
+player_texture = load_texture('assets\\player.png')
+
+player = Player(player_texture,
+                WINDOW_WIDTH / 2 - (player_texture.width / 2) * TEXTURE_SCALE,
+                WINDOW_HEIGHT / 2 - (player_texture.height / 2) * TEXTURE_SCALE,
+                300, TEXTURE_SCALE)
 
 while not window_should_close():
     fps = get_fps()
@@ -24,6 +30,8 @@ while not window_should_close():
     begin_drawing()
     
     clear_background(RAYWHITE)
+
+    #draw_texture_ex(player_texture, pos, 0, 4, WHITE)
 
     player.draw()
 
