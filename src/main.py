@@ -29,15 +29,15 @@ while not window_should_close():
     # draw
     begin_drawing()
     
-    clear_background(RAYWHITE)
+    clear_background(DARKGRAY)
 
     #draw_texture_ex(player_texture, pos, 0, 4, WHITE)
 
     player.draw()
 
-    draw_text('Hello! We\'re about to start a great adventure!', 5, 10, 20, DARKGRAY)
-    draw_text(f'FPS: {fps}', 5, 35, 20, DARKGRAY)
-    draw_text(f'Frame time: {dt}', 5, 60, 20, DARKGRAY)
+    draw_text('Hello! We\'re about to start a great adventure!', 5, 10, 20, RAYWHITE)
+    draw_text(f'FPS: {fps}', 5, 35, 20, RAYWHITE)
+    draw_text(f'Frame time: {dt}', 5, 60, 20, RAYWHITE)
     
     end_drawing()
 
