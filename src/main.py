@@ -9,15 +9,15 @@ init_window(WINDOW_WIDTH, WINDOW_HEIGHT, 'Nadir\'s Dungeon')
 set_target_fps(60)
 
 pos = Vector2(WINDOW_WIDTH / 2 - 100, WINDOW_HEIGHT / 2)
-player_textures = {'down': load_texture('assets\\player_down.png'),
-                   'up': load_texture('assets\\player_up.png'),
+player_textures = {'down': [load_texture(f'assets\\player\\down\\player_down_{i}.png') for i in range(8)],
+                   'up': [load_texture(f'assets\\player\\up\\player_up_{i}.png') for i in range(8)],
                    'left': load_texture('assets\\player_left.png'),
                    'right': load_texture('assets\\player_right.png')}
 
 player = Player(player_textures,
-                WINDOW_WIDTH / 2 - (player_textures['down'].width / 2) * TEXTURE_SCALE,
-                WINDOW_HEIGHT / 2 - (player_textures['down'].height / 2) * TEXTURE_SCALE,
-                300, TEXTURE_SCALE)
+                WINDOW_WIDTH / 2 - (player_textures['down'][0].width / 2) * TEXTURE_SCALE,
+                WINDOW_HEIGHT / 2 - (player_textures['down'][0].height / 2) * TEXTURE_SCALE,
+                200, TEXTURE_SCALE)
 
 while not window_should_close():
     fps = get_fps()
@@ -34,11 +34,9 @@ while not window_should_close():
     
     clear_background(DARKGRAY)
 
-    #draw_texture_ex(player_texture, pos, 0, 4, WHITE)
-
     player.draw()
 
-    draw_text('Hello! We\'re about to start a great adventure!', 5, 10, 20, RAYWHITE)
+    draw_text('Never give up, bro!', 5, 10, 20, RAYWHITE)
     draw_text(f'FPS: {fps}', 5, 35, 20, RAYWHITE)
     draw_text(f'Frame time: {dt}', 5, 60, 20, RAYWHITE)
     

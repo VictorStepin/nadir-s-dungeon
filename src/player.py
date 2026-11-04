@@ -4,12 +4,14 @@ from pyray import *
 class Player:
     def __init__ (self, textures, pos_x, pos_y, speed, texture_scale):
         self.textures = textures
-        self.texture = textures['down']
+        self.frame_index = 0
+        self.texture = self.textures['down'][self.frame_index]
         self.pos = Vector2(pos_x, pos_y)
         self.speed = speed
         self.texture_scale = texture_scale
         self.direction = Vector2(0, 0)
         self.velocity = Vector2(0, 0)
+        self.animation_speed = 10
 
     def process_input (self):
         self.direction.x = (is_key_down(rl.KEY_RIGHT) - is_key_down(rl.KEY_LEFT))
@@ -21,9 +23,17 @@ class Player:
         if self.direction.x != 0 or self.direction.y != 0:
             if abs(self.direction.y) > abs(self.direction.x):
                 if self.direction.y > 0:
-                    self.texture = self.textures['down']
+                    down_frames = self.textures['down']
+                    self.frame_index += self.animation_speed * dt
+                    if self.frame_index >= len(down_frames) - 1:
+                        self.frame_index = 0
+                    self.texture = down_frames[int(self.frame_index)]
                 else:
-                    self.texture = self.textures['up']
+                    up_frames = self.textures['up']
+                    self.frame_index += self.animation_speed * dt
+                    if self.frame_index >= len(up_frames) - 1:
+                        self.frame_index = 0
+                    self.texture = up_frames[int(self.frame_index)]
             else:
                 if self.direction.x > 0:
                     self.texture = self.textures['right']
