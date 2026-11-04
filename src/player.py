@@ -2,8 +2,9 @@ import raylib as rl
 from pyray import *
 
 class Player:
-    def __init__ (self, texture, pos_x, pos_y, speed, texture_scale):
-        self.texture = texture
+    def __init__ (self, textures, pos_x, pos_y, speed, texture_scale):
+        self.textures = textures
+        self.texture = textures['down']
         self.pos = Vector2(pos_x, pos_y)
         self.speed = speed
         self.texture_scale = texture_scale
@@ -16,6 +17,20 @@ class Player:
         self.direction = vector2_normalize(self.direction) if (self.direction.x != 0) or (self.direction.y != 0) else self.direction
 
     def update (self, dt, world_bounds: Rectangle):
+        # texture
+        if self.direction.x != 0 or self.direction.y != 0:
+            if abs(self.direction.y) > abs(self.direction.x):
+                if self.direction.y > 0:
+                    self.texture = self.textures['down']
+                else:
+                    self.texture = self.textures['up']
+            else:
+                if self.direction.x > 0:
+                    self.texture = self.textures['right']
+                else:
+                    self.texture = self.textures['left']
+
+        # position
         velocity = vector2_scale(self.direction, self.speed * dt)
         self.pos = vector2_add(self.pos, velocity)
         self.pos.x = clamp(self.pos.x, world_bounds.x, world_bounds.width - self.texture.width * self.texture_scale)

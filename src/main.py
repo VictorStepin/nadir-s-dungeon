@@ -9,11 +9,14 @@ init_window(WINDOW_WIDTH, WINDOW_HEIGHT, 'Nadir\'s Dungeon')
 set_target_fps(60)
 
 pos = Vector2(WINDOW_WIDTH / 2 - 100, WINDOW_HEIGHT / 2)
-player_texture = load_texture('assets\\player.png')
+player_textures = {'down': load_texture('assets\\player_down.png'),
+                   'up': load_texture('assets\\player_up.png'),
+                   'left': load_texture('assets\\player_left.png'),
+                   'right': load_texture('assets\\player_right.png')}
 
-player = Player(player_texture,
-                WINDOW_WIDTH / 2 - (player_texture.width / 2) * TEXTURE_SCALE,
-                WINDOW_HEIGHT / 2 - (player_texture.height / 2) * TEXTURE_SCALE,
+player = Player(player_textures,
+                WINDOW_WIDTH / 2 - (player_textures['down'].width / 2) * TEXTURE_SCALE,
+                WINDOW_HEIGHT / 2 - (player_textures['down'].height / 2) * TEXTURE_SCALE,
                 300, TEXTURE_SCALE)
 
 while not window_should_close():
